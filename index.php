@@ -51,12 +51,6 @@ if (!function_exists('espresso_masonry_grid')) {
 				$link_text 			= __('Register Now!', 'event_espresso');
 				$open_spots			= get_number_of_attendees_reg_limit($event->id, 'number_available_spaces');
 	
-				//use the wordpress date format.
-				$date_format = get_option('date_format');
-	
-				$att_num = get_number_of_attendees_reg_limit($event->id, 'num_attendees');
-				//Uncomment the below line to hide an event if it is maxed out
-				//if ( $att_num >= $event->reg_limit  ) { continue; $live_button = 'Closed';  }
 				if($open_spots < 1 && $event->allow_overflow == 'N') {
 					$link_text = __('Sold Out', 'event_espresso');
 				} else if ($open_spots < 1 && $event->allow_overflow == 'Y'){
@@ -85,7 +79,7 @@ if (!function_exists('espresso_masonry_grid')) {
 				echo '<p class="event-cost">Cost: ';
 				echo $event->event_cost === "0.00" ? __('FREE', 'event_espresso') : $org_options['currency_symbol'] . $event->event_cost;
 				echo '</p>';
-				echo '<p class="event-date">'.date($date_format, strtotime($event->start_date)).'</p>';
+				echo '<p class="event-date">'.date(get_option('date_format'), strtotime($event->start_date)).'</p>';
 				echo '<p class="event-status"><a id="register_link-' . $event->id . '" href="' . $registration_url . '" class="button darken">' . $link_text. '</a></p>';
 				echo '</div>';
 			}
